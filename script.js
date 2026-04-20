@@ -229,9 +229,9 @@ document.getElementById('btn-arrepenti').addEventListener('click', () => {
 document.getElementById('btn-close-sad').addEventListener('click', async () => {
     const emoji = document.getElementById('cierre-emoji');
     if (isGoing) {
-        emoji.innerHTML = '<img src="imagenes/end.png" alt=":)" style="display:block; margin:0 auto; transform:translateX(-30px); width:100%; max-width:400px; object-fit:contain;" />';
+        emoji.innerHTML = '<img src="imagenes/end.png" alt=":)" style="display:block; margin:0 auto; transform:translateX(-8%); width:100%; max-width:400px; object-fit:contain;" />';
     } else {
-        emoji.textContent = ':(';
+        emoji.innerHTML = '<div class="heartbeat-container" style="position: relative; margin: 0 auto; width: 250px; height: 250px;"><img src="imagenes/foto-triste.png" alt=":(" style="position: absolute; top:0; left:0; width:100%; height:100%; object-fit: contain;" /><img src="imagenes/crying.png" alt="Llorando" class="heartbeat-overlay" style="position: absolute; top:0; left:0; width:100%; height:100%; object-fit: contain; pointer-events: none;" /></div>';
     }
     switchScreen(screen5, screen6);
 });
@@ -257,9 +257,9 @@ document.getElementById('btn-close-playlist').addEventListener('click', (e) => {
     e.preventDefault();
     const emoji = document.getElementById('cierre-emoji');
     if (isGoing === false) {
-        emoji.textContent = ':(';
+        emoji.innerHTML = '<div class="heartbeat-container" style="position: relative; margin: 0 auto; width: 250px; height: 250px;"><img src="imagenes/foto-triste.png" alt=":(" style="position: absolute; top:0; left:0; width:100%; height:100%; object-fit: contain;" /><img src="imagenes/crying.png" alt="Llorando" class="heartbeat-overlay" style="position: absolute; top:0; left:0; width:100%; height:100%; object-fit: contain; pointer-events: none;" /></div>';
     } else {
-        emoji.innerHTML = '<img src="imagenes/end.png" alt=":)" style="display:block; margin:0 auto; transform:translateX(-30px); width:100%; max-width:400px; object-fit:contain;" />';
+        emoji.innerHTML = '<img src="imagenes/end.png" alt=":)" style="display:block; margin:0 auto; transform:translateX(-8%); width:100%; max-width:400px; object-fit:contain;" />';
     }
     switchScreen(screenPlaylist, screen6);
 });
@@ -270,9 +270,9 @@ if (btnClose) {
         e.preventDefault();
         const emoji = document.getElementById('cierre-emoji');
         if (isGoing === false) {
-            emoji.textContent = ':(';
+            emoji.innerHTML = '<div class="heartbeat-container" style="position: relative; margin: 0 auto; width: 250px; height: 250px;"><img src="imagenes/foto-triste.png" alt=":(" style="position: absolute; top:0; left:0; width:100%; height:100%; object-fit: contain;" /><img src="imagenes/crying.png" alt="Llorando" class="heartbeat-overlay" style="position: absolute; top:0; left:0; width:100%; height:100%; object-fit: contain; pointer-events: none;" /></div>';
         } else {
-            emoji.innerHTML = '<img src="imagenes/end.png" alt=":)" style="display:block; margin:0 auto; transform:translateX(-30px); width:100%; max-width:400px; object-fit:contain;" />';
+            emoji.innerHTML = '<img src="imagenes/end.png" alt=":)" style="display:block; margin:0 auto; transform:translateX(-8%); width:100%; max-width:400px; object-fit:contain;" />';
         }
         switchScreen(screen3, screen6);
     });
