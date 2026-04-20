@@ -229,7 +229,7 @@ document.getElementById('btn-arrepenti').addEventListener('click', () => {
 document.getElementById('btn-close-sad').addEventListener('click', async () => {
     const emoji = document.getElementById('cierre-emoji');
     if (isGoing) {
-        emoji.innerHTML = '<img src="imagenes/end.png" alt=":)" style="display:block; margin:0 auto; width:100%; max-width:400px; object-fit:contain;" />';
+        emoji.innerHTML = '<img src="imagenes/end.png" alt=":)" style="display:block; margin:0 auto; transform:translateX(-30px); width:100%; max-width:400px; object-fit:contain;" />';
     } else {
         emoji.textContent = ':(';
     }
@@ -259,7 +259,7 @@ document.getElementById('btn-close-playlist').addEventListener('click', (e) => {
     if (isGoing === false) {
         emoji.textContent = ':(';
     } else {
-        emoji.innerHTML = '<img src="imagenes/end.png" alt=":)" style="display:block; margin:0 auto; width:100%; max-width:400px; object-fit:contain;" />';
+        emoji.innerHTML = '<img src="imagenes/end.png" alt=":)" style="display:block; margin:0 auto; transform:translateX(-30px); width:100%; max-width:400px; object-fit:contain;" />';
     }
     switchScreen(screenPlaylist, screen6);
 });
@@ -272,7 +272,7 @@ if (btnClose) {
         if (isGoing === false) {
             emoji.textContent = ':(';
         } else {
-            emoji.innerHTML = '<img src="imagenes/end.png" alt=":)" style="display:block; margin:0 auto; width:100%; max-width:400px; object-fit:contain;" />';
+            emoji.innerHTML = '<img src="imagenes/end.png" alt=":)" style="display:block; margin:0 auto; transform:translateX(-30px); width:100%; max-width:400px; object-fit:contain;" />';
         }
         switchScreen(screen3, screen6);
     });
