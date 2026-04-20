@@ -10,7 +10,7 @@
         content="HOLAAA...¡Estás invitado a mi cumple! Entrá acá para ver el lugar y confirmar asistencia." />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://lucerogauna.github.io/23thBDY/" />
-    <meta property="og:image" content="https://lucerogauna.github.io/23thBDY/preview.png" />
+    <meta property="og:image" content="https://lucerogauna.github.io/23thBDY/imagenes/preview.png" />
     <!-- Google Fonts: Anton (para títulos grandes) y Space Mono (para textos técnicos) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -46,7 +46,7 @@
     <div id="app" class="app-container">
         <!-- GLOBAL PAUSE BUTTON -->
         <a href="#" id="global-btn-pause" class="hidden"
-            style="position:absolute; top:1rem; right:1rem; z-index:999;"><img src="pause.png" alt="Pausar música"
+            style="position:absolute; top:1rem; right:1rem; z-index:999;"><img src="imagenes/pause.png" alt="Pausar música"
                 style="width:24px; height:24px;"></a>
 
         <!-- PANTALLA 0: Intro Interactiva -->
@@ -82,14 +82,12 @@
                         <button id="btn-next-1" class="btn btn-outline-white">SIGUIENTE</button>
                     </div>
 
-                    <!-- Imagen flotante de adorno -->
-                    <div class="floating-face" id="draggable-sticker"
-                        style="position: relative; touch-action: none; cursor: grab; z-index: 100;">
-                        <!-- Reemplazar con URL de la carita flotante que desees -->
-                        <img src="stickerini.png" alt="Face" draggable="false" />
-                        <p class="drag-hint mono-label micro text-gray"
-                            style="margin-top: 0.5rem; transition: opacity 0.3s; pointer-events: none;">[ MOVEME ]
-                        </p>
+                    <!-- Imagen flotante de adorno interactivo -->
+                    <div class="floating-face heartbeat-container" id="draggable-sticker"
+                        style="position: relative; touch-action: none; cursor: grab; z-index: 100; margin: 2rem auto 0 auto; width: 80px; height: 80px;">
+                        <img src="imagenes/stickerini.png" alt="Face" draggable="false" style="position: absolute; top:0; left:0; width:100%; height:100%; object-fit: contain;" />
+                        <img src="imagenes/moveme1.png" alt="Move Me overlay" draggable="false" class="heartbeat-overlay"
+                            style="position: absolute; top:0; left:0; width:100%; height:100%; object-fit: contain; pointer-events: none;" />
                     </div>
                 </div>
 
@@ -129,7 +127,7 @@
                                 style="display:flex; justify-content:space-between; align-items:center;">
                                 09 MAY
                                 <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Cumple+Lucero&dates=20260509T210000/20260510T040000&details=Cumple+de+Lucero&location=Mi+Casa"
-                                    target="_blank"><img src="calendario.png" style="width:32px; height:32px;"></a>
+                                    target="_blank"><img src="imagenes/calendario.png" style="width:32px; height:32px;"></a>
                             </div>
                         </div>
 
@@ -146,7 +144,7 @@
                                 style="display:flex; justify-content:space-between; align-items:center;">
                                 MI CASA
                                 <a id="btn-mapa" style="cursor: pointer;" role="button" tabindex="0">
-                                    <img src="location.png" style="width:38px; height:38px;"
+                                    <img src="imagenes/location.png" style="width:38px; height:38px;"
                                         alt="Ver ubicación en Google Maps">
                                 </a>
                             </div>
@@ -207,16 +205,16 @@
             <div class="content-wrapper centered">
                 <h1 id="final-message" class="title-huge text-white"></h1>
                 <p id="final-sub" class="mono-label mt-4"></p>
-                <div id="buttons-container" class="action-footer mt-auto flex-row"
-                    style="display:flex; margin-top: 2rem; width: 100%; justify-content: center; gap: 2rem;">
+                <div id="buttons-container"
+                    style="display:flex; margin-top: 2.5rem; width: 100%; justify-content: center; gap: 2.5rem;">
                     <button id="btn-arrepenti" class="unstyled mono-link">ME ARREPENTÍ</button>
                     <button id="btn-close-sad" class="unstyled mono-link">CLOSE</button>
                 </div>
-                <div class="floating-face hidden" id="draggable-sad-sticker"
-                    style="position: relative; touch-action: none; cursor: grab; z-index: 100;">
-                    <img src="foto-triste.png" alt="Sad Face" draggable="false" />
-                    <p class="drag-hint mono-label micro text-gray"
-                        style="margin-top: 0.5rem; transition: opacity 0.3s; pointer-events: none;">[ MOVEME ]</p>
+                <div class="floating-face heartbeat-container hidden" id="draggable-sad-sticker"
+                    style="position: relative; touch-action: none; cursor: grab; z-index: 100; margin: 2rem auto 0 auto; width: 80px; height: 80px;">
+                    <img src="imagenes/foto-triste.png" alt="Sad Face" draggable="false" style="position: absolute; top:0; left:0; width:100%; height:100%; object-fit: contain;" />
+                    <img src="imagenes/crying.png" alt="Crying overlay" draggable="false" class="heartbeat-overlay"
+                        style="position: absolute; top:0; left:0; width:100%; height:100%; object-fit: contain; pointer-events: none;" />
                 </div>
             </div>
         </section>
@@ -237,7 +235,7 @@
 
                 <div class="playlist-card-border"
                     style="border: 2px solid var(--red); padding: 1.5rem; width:100%; max-width:400px; margin:0 auto; background: var(--bg-color);">
-                    <img src="foto-playlist.jpg" alt="Playlist Cover"
+                    <img src="imagenes/foto-playlist.jpg" alt="Playlist Cover"
                         style="width:100%; aspect-ratio:1/1; object-fit:cover; margin-bottom:1rem; border: 1px solid rgba(255,255,255,0.1);" />
 
                     <p class="mono-note text-white" style="text-align: left; font-size:0.85rem; line-height:1.4;">

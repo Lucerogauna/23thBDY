@@ -83,8 +83,9 @@ if (btnStart) {
 
 class Particle {
     constructor(x, y, color) {
-        this.x = x + (Math.random() * 20 - 10) * dpr;
-        this.y = y + (Math.random() * 20 - 10) * dpr;
+        // Empiezan dispersas por la pantalla para generar una animación de ensamble al abrir
+        this.x = Math.random() * canvas.width;
+        this.y = Math.random() * canvas.height;
         this.baseX = x;
         this.baseY = y;
         // Tamaño ajustado para mejorar resolución visual en mobile
@@ -225,4 +226,4 @@ setTimeout(() => {
         
         step++;
     }, 16);
-}, 1500);
+}, 400); // Iniciamos el barrido casi ni bien termina de ensamblarse

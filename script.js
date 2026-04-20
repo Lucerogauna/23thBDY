@@ -176,7 +176,7 @@ btnYes.addEventListener('click', () => {
     // Cambiar estilos de los botones (reset de No y activar Sí)
     btnYes.classList.remove('text-gray');
     btnYes.classList.add('text-white');
-    btnYes.innerHTML = '<img src="foto-feliz.png" class="face-icon" alt="Feliz" onerror="this.style.display=\\\'none\\\'"> SÍ, VOY';
+    btnYes.innerHTML = '<img src="imagenes/foto-feliz.png" class="face-icon" alt="Feliz" onerror="this.style.display=\\\'none\\\'"> SÍ, VOY';
 
     btnNo.classList.remove('text-white');
     btnNo.classList.add('text-gray');
@@ -195,7 +195,7 @@ btnNo.addEventListener('click', () => {
 
     btnNo.classList.remove('text-gray');
     btnNo.classList.add('text-white');
-    btnNo.innerHTML = '<img src="foto-triste.png" class="face-icon" alt="Triste" onerror="this.style.display=\'none\'"> NO PUEDO';
+    btnNo.innerHTML = '<img src="imagenes/foto-triste.png" class="face-icon" alt="Triste" onerror="this.style.display=\'none\'"> NO PUEDO';
 
     btnYes.classList.remove('text-white');
     btnYes.classList.add('text-gray');
@@ -218,7 +218,7 @@ document.getElementById('btn-arrepenti').addEventListener('click', () => {
 
     document.getElementById('footer-normal').classList.remove('hidden');
     document.getElementById('footer-normal').style.display = 'flex';
-    
+
     btnConfirmYes.textContent = "ENVIAR";
     btnConfirmYes.disabled = false;
 
@@ -229,7 +229,7 @@ document.getElementById('btn-arrepenti').addEventListener('click', () => {
 document.getElementById('btn-close-sad').addEventListener('click', async () => {
     const emoji = document.getElementById('cierre-emoji');
     if (isGoing) {
-        emoji.textContent = ':)';
+        emoji.innerHTML = '<img src="imagenes/end.png" alt=":)" style="display:block; margin:0 auto; width:100%; max-width:400px; object-fit:contain;" />';
     } else {
         emoji.textContent = ':(';
     }
@@ -259,7 +259,7 @@ document.getElementById('btn-close-playlist').addEventListener('click', (e) => {
     if (isGoing === false) {
         emoji.textContent = ':(';
     } else {
-        emoji.textContent = ':)';
+        emoji.innerHTML = '<img src="imagenes/end.png" alt=":)" style="display:block; margin:0 auto; width:100%; max-width:400px; object-fit:contain;" />';
     }
     switchScreen(screenPlaylist, screen6);
 });
@@ -272,7 +272,7 @@ if (btnClose) {
         if (isGoing === false) {
             emoji.textContent = ':(';
         } else {
-            emoji.textContent = ':)';
+            emoji.innerHTML = '<img src="imagenes/end.png" alt=":)" style="display:block; margin:0 auto; width:100%; max-width:400px; object-fit:contain;" />';
         }
         switchScreen(screen3, screen6);
     });
@@ -319,9 +319,9 @@ btnConfirmYes.addEventListener('click', async () => {
 
         document.getElementById('btn-arrepenti').style.display = 'none';
         document.getElementById('btn-close-sad').style.display = 'none';
-        
+
         const sadSticker = document.getElementById('draggable-sad-sticker');
-        if(sadSticker) sadSticker.classList.add('hidden');
+        if (sadSticker) sadSticker.classList.add('hidden');
 
         if (globalTimer) clearInterval(globalTimer);
         globalTimer = setInterval(() => {
@@ -343,7 +343,7 @@ btnConfirmYes.addEventListener('click', async () => {
         document.getElementById('btn-close-sad').style.display = 'inline-block';
 
         const sadSticker = document.getElementById('draggable-sad-sticker');
-        if(sadSticker) sadSticker.classList.remove('hidden');
+        if (sadSticker) sadSticker.classList.remove('hidden');
     }
 });
 
@@ -356,16 +356,16 @@ if (globalBtnPause) {
         e.preventDefault();
         isPaused = !isPaused;
         const music = document.getElementById('bg-music');
-        
+
         if (music) {
             if (isPaused) {
                 music.pause();
             } else {
                 music.play();
             }
-            
+
             const img = globalBtnPause.querySelector('img');
-            if (img) img.src = isPaused ? 'play.png' : 'pause.png';
+            if (img) img.src = isPaused ? 'imagenes/play.png' : 'imagenes/pause.png';
         }
     });
 }
@@ -381,14 +381,25 @@ function makeDraggable(id) {
     el.addEventListener('pointerdown', (e) => {
         isDragging = true;
         el.style.cursor = 'grabbing';
-        
+
         startX = e.clientX;
         startY = e.clientY;
-        
-        // Ocultar el texto de pista (si existe) permanentemente
+
+        // Ocultar el texto de pista original (si alguna vez vuelve) permanentemente
         const hint = el.querySelector('.drag-hint');
         if (hint) {
             hint.style.opacity = '0';
+        }
+
+        if (id !== 'draggable-sad-sticker') {
+            // Ocultar el nuevo overlay de moveme1.png
+            const overlay = el.querySelector('.heartbeat-overlay');
+            if (overlay) {
+                overlay.style.display = 'none';
+            }
+
+            // Retirar el latido rápido así queda relajado y flotando normalmente
+            el.classList.remove('heartbeat-container');
         }
 
         e.preventDefault();
@@ -409,12 +420,12 @@ function makeDraggable(id) {
         if (!isDragging) return;
         isDragging = false;
         el.style.cursor = 'grab';
-        
+
         const dx = e.clientX - startX;
         const dy = e.clientY - startY;
         initialX += dx;
         initialY += dy;
-        
+
         el.releasePointerCapture(e.pointerId);
     };
 

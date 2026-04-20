@@ -38,7 +38,7 @@ body {
   left: 0;
   right: 0;
   bottom: 0;
-  background-image: url('bg1.jpg');
+  background-image: url('imagenes/bg1.jpg');
   background-size: cover;
   background-position: center;
   opacity: 0.3;
@@ -525,6 +525,33 @@ body {
   opacity: 0;
   position: absolute;
   pointer-events: none;
+}
+
+/* LATIDO Y MIX DE STICKER */
+.heartbeat-container {
+  animation: trueHeartbeat 3s ease-in-out infinite !important;
+}
+
+@keyframes trueHeartbeat {
+  0% { transform: scale(1); }
+  10% { transform: scale(1.2); }
+  20% { transform: scale(1); }
+  30% { transform: scale(1.2); }
+  40% { transform: scale(1); }
+  100% { transform: scale(1); }
+}
+
+.heartbeat-overlay {
+  animation: overlayFade 3s ease-in-out infinite;
+}
+
+@keyframes overlayFade {
+  0% { opacity: 0; }
+  10% { opacity: 1; }
+  20% { opacity: 0; }
+  30% { opacity: 1; }
+  40% { opacity: 0; }
+  100% { opacity: 0; }
 }
 
 /* DOTS ANIMATION */
