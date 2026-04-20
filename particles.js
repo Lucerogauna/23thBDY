@@ -66,6 +66,12 @@ function advanceScreen(e) {
     const s1 = document.getElementById('screen-1');
     if (s0 && s1 && typeof switchScreen === 'function') {
         switchScreen(s0, s1);
+        
+        // Mostrar el botón global de pausa
+        const globalBtn = document.getElementById('global-btn-pause');
+        if (globalBtn) {
+            globalBtn.classList.remove('hidden');
+        }
     }
 }
 
@@ -179,3 +185,44 @@ window.addEventListener('resize', () => {
         initParticles();
     }, 300);
 });
+
+// Animación sutil de barrido autónomo para incentivar al usuario a tocar
+setTimeout(() => {
+    // Si el usuario ya interactuó (ya avanzó o ya pasó el mouse sobre el texto), cancelar
+    if (clicked || mouse.x !== null) return; 
+
+    let step = 0;
+    const maxSteps = 85; 
+    const startX = canvas.width * 0.1;
+    const endX = canvas.width * 0.9;
+    
+    // Calcular dinámicamente dónde están los centros del texto
+    let dpr = window.devicePixelRatio || 1;
+    let fontSize = Math.min(canvas.width / 4, 120 * dpr); 
+    const baseCenterY = canvas.height / 2 - (10 * dpr);
+    
+    const luceroY = baseCenterY - fontSize * 0.4; // Centro exacto horizontal de "LUCERO"
+    const num23Y = baseCenterY + fontSize * 0.7;  // Centro exacto horizontal de "23"
+    
+    // Punto de partida se centra casi todo en "LUCERO"
+    const waveMidpoint = luceroY;
+    // Amplitud muy sutil de onda para que solo de casualidad roce un poco el "23"
+    const amplitude = fontSize * 0.15;  
+
+    const hintInterval = setInterval(() => {
+        if (step >= maxSteps || clicked) {
+            clearInterval(hintInterval);
+            mouse.x = null;
+            mouse.y = null;
+            return;
+        }
+        
+        let progress = step / maxSteps;
+        mouse.x = startX + ((endX - startX) * progress);
+        
+        // La curva sube EXACTAMENTE hasta la Y de "LUCERO" y baja EXACTAMENTE hasta la Y de "23"
+        mouse.y = waveMidpoint - Math.sin(progress * Math.PI * 2) * amplitude;
+        
+        step++;
+    }, 16);
+}, 1500);

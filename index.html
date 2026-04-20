@@ -6,7 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Cumpleaños - Invitación</title>
     <meta property="og:title" content="Cumpleaños - Invitación" />
-    <meta property="og:description" content="¡Estás invitado a mi cumple de 23! Entrá acá para ver el lugar y confirmar asistencia." />
+    <meta property="og:description"
+        content="¡Estás invitado a mi cumple de 23! Entrá acá para ver el lugar y confirmar asistencia." />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://lucerogauna.github.io/23thBDY/" />
     <meta property="og:image" content="https://lucerogauna.github.io/23thBDY/preview.png" />
@@ -23,7 +24,7 @@
     <audio id="bg-music" src="musica.mp3" loop></audio>
     <!-- SVG Filter para efecto de texto granulado estático -->
     <svg width="0" height="0" style="position:absolute; width:0; height:0; overflow:hidden;" aria-hidden="true">
-        <filter id="grain-filter" x="0" y="0" width="100%" height="100%">
+        <filter id="grain-filter" x="-20%" y="-20%" width="140%" height="140%">
             <!-- Genera ruido -->
             <feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="2" result="noise" />
             <!-- Ajusta el contraste para que sean puntos definidos -->
@@ -43,6 +44,10 @@
     <div class="red-star star-3"></div>
 
     <div id="app" class="app-container">
+        <!-- GLOBAL PAUSE BUTTON -->
+        <a href="#" id="global-btn-pause" class="hidden"
+            style="position:absolute; top:1rem; right:1rem; z-index:999;"><img src="pause.png" alt="Pausar música"
+                style="width:24px; height:24px;"></a>
 
         <!-- PANTALLA 0: Intro Interactiva -->
         <section id="screen-0" class="screen active" style="padding:0; overflow:hidden; z-index:20;">
@@ -57,9 +62,8 @@
             </div>
         </section>
 
-<!-- PANTALLA 1: Ingreso -->
+        <!-- PANTALLA 1: Ingreso -->
         <section id="screen-1" class="screen hidden">
-            <a href="#" id="btn-pause-1" style="position:absolute; top:1rem; right:1rem; z-index:50;"><img src="pause.png" style="width:24px; height:24px;"></a>
             <div class="content-wrapper">
                 <div class="top-tag">
                     <span class="tag-title text-red text-grain">CUMPLEAÑOS<br>LUCERO</span>
@@ -69,7 +73,7 @@
                 <div class="main-content centered-vertical">
                     <h1 id="title-screen-1" class="title-huge text-yellow">¿QUIÉN SOS?</h1>
                     <label id="label-screen-1" class="mono-label" for="user-name">INGRESA TU NOMBRE Y APELLIDO</label>
-                    <div class="input-line-group">
+                    <div class="input-line-group" style="margin-top: 4rem;">
                         <input type="text" id="user-name" placeholder="" autocomplete="off" />
                     </div>
                     <p id="error-msg-1" class="error-msg hidden mono-label">INGRESA TU NOMBRE Y APELLIDO</p>
@@ -79,14 +83,18 @@
                     </div>
 
                     <!-- Imagen flotante de adorno -->
-                    <div class="floating-face">
+                    <div class="floating-face" id="draggable-sticker"
+                        style="position: relative; touch-action: none; cursor: grab; z-index: 100;">
                         <!-- Reemplazar con URL de la carita flotante que desees -->
-                        <img src="stickerini.png"
-                            alt="Face" />
+                        <img src="stickerini.png" alt="Face" draggable="false" />
+                        <p class="drag-hint mono-label micro text-gray"
+                            style="margin-top: 0.5rem; transition: opacity 0.3s; pointer-events: none;">[ MOVEME ]
+                        </p>
                     </div>
                 </div>
 
-                <div class="bottom-link" id="already-registered-container">
+                <div class="bottom-link action-footer mt-auto flex-row" id="already-registered-container" style="display:flex; width:100%; justify-content: flex-start;">
+                    <a href="#" id="btn-volver-registro" class="mono-link hidden">VOLVER</a>
                     <a href="#" id="btn-already-registered" class="mono-link">YA ME REGISTRÉ</a>
                 </div>
             </div>
@@ -103,14 +111,13 @@
 
         <!-- PANTALLA 3: Los Detalles (El Evento) -->
         <section id="screen-3" class="screen hidden">
-            <a href="#" id="btn-pause" style="position:absolute; top:1rem; right:1rem; z-index:50;"><img src="pause.png" style="width:24px; height:24px;"></a>
             <div class="content-wrapper">
                 <div class="top-tag">
                     <span class="tag-title text-red text-grain">CUMPLEAÑOS<br>LUCERO</span>
                     <p class="mono-sub">002_INFORMACIÓN</p>
                 </div>
 
-                <div class="main-content mt-line">
+                <div class="main-content mt-line" style="display:flex; flex-direction:column; flex-grow:1;">
                     <h2 class="title-huge text-red">EL EVENTO</h2>
 
                     <div class="details-grid">
@@ -134,10 +141,12 @@
                         <!-- Lugar -->
                         <div class="detail-item border-bottom">
                             <span class="mono-label small">LUGAR</span>
-                            <div class="detail-value" style="display:flex; justify-content:space-between; align-items:center;">
+                            <div class="detail-value"
+                                style="display:flex; justify-content:space-between; align-items:center;">
                                 MI CASA
                                 <a id="btn-mapa" style="cursor: pointer;" role="button" tabindex="0">
-                                    <img src="location.png" style="width:38px; height:38px;" alt="Ver ubicación en Google Maps">
+                                    <img src="location.png" style="width:38px; height:38px;"
+                                        alt="Ver ubicación en Google Maps">
                                 </a>
                             </div>
                         </div>
@@ -147,7 +156,8 @@
                         QUIERAS
                         TOMAR ;)</p>
 
-                    <div class="action-footer mt-auto flex-row" style="display:flex; width:100%; justify-content:space-between;">
+                    <div class="action-footer mt-auto flex-row"
+                        style="display:flex; width:100%; justify-content:space-between;">
                         <button id="btn-info" class="btn btn-outline-red">SIGUIENTE</button>
                         <a href="#" id="btn-close" class="btn-close-minimal btn-close-info hidden">CLOSE</a>
                     </div>
@@ -157,7 +167,6 @@
 
         <!-- PANTALLA 4: Confirmación -->
         <section id="screen-4" class="screen hidden">
-            <a href="#" id="btn-pause-4" style="position:absolute; top:1rem; right:1rem; z-index:50;"><img src="pause.png" style="width:24px; height:24px;"></a>
             <div class="content-wrapper">
                 <div class="top-tag">
                     <span class="tag-title text-red text-grain">CUMPLEAÑOS<br>LUCERO</span>
@@ -194,14 +203,19 @@
 
         <!-- PANTALLA 5: Final -->
         <section id="screen-5" class="screen hidden">
-            <a href="#" id="btn-pause-5" style="position:absolute; top:1rem; right:1rem; z-index:50;"><img src="pause.png" style="width:24px; height:24px;"></a>
             <div class="content-wrapper centered">
                 <h1 id="final-message" class="title-huge text-white"></h1>
                 <p id="final-sub" class="mono-label mt-4"></p>
                 <div id="buttons-container" class="action-footer mt-auto flex-row"
-                    style="display:flex; margin-top: 2rem; width: 100%; justify-content: center; gap: 1rem;">
-                    <button id="btn-arrepenti" class="btn btn-outline-white">ME ARREPENTÍ</button>
-                    <button id="btn-close-sad" class="btn btn-outline-white">CLOSE</button>
+                    style="display:flex; margin-top: 2rem; width: 100%; justify-content: center; gap: 2rem;">
+                    <button id="btn-arrepenti" class="unstyled mono-link">ME ARREPENTÍ</button>
+                    <button id="btn-close-sad" class="unstyled mono-link">CLOSE</button>
+                </div>
+                <div class="floating-face hidden" id="draggable-sad-sticker"
+                    style="position: relative; touch-action: none; cursor: grab; z-index: 100;">
+                    <img src="foto-triste.png" alt="Sad Face" draggable="false" />
+                    <p class="drag-hint mono-label micro text-gray"
+                        style="margin-top: 0.5rem; transition: opacity 0.3s; pointer-events: none;">[ MOVEME ]</p>
                 </div>
             </div>
         </section>
@@ -215,10 +229,10 @@
 
         <!-- PANTALLA PLAYLIST (BONUS TRACK) -->
         <section id="screen-playlist" class="screen hidden">
-            <a href="#" id="btn-pause-playlist" style="position:absolute; top:1rem; right:1rem; z-index:50;"><img src="pause.png" style="width:24px; height:24px;"></a>
             <div class="content-wrapper centered-vertical">
-                <h2 class="title-huge text-red text-grain" style="font-size:3rem; margin-bottom: 0.5rem;">BONUS TRACK
-                </h2>
+                <h2 class="title-huge text-red text-grain"
+                    style="font-size: clamp(1.8rem, 11vw, 3rem); margin-bottom: 0.5rem; text-align: left; white-space: nowrap; word-break: keep-all;">
+                    BONUS TRACK</h2>
 
                 <div class="playlist-card-border"
                     style="border: 2px solid var(--red); padding: 1.5rem; width:100%; max-width:400px; margin:0 auto; background: var(--bg-color);">
@@ -256,20 +270,20 @@
     <script src="particles.js"></script>
     <!-- Script de ofuscación mapa -->
     <script>
-        const linkOfuscado = "aHR0cHM6Ly9tYXBzLmFwcC5nb28uZ2wvSEtyN0Q3ODVrdGhMdnNBbjY=";
+        const linkOfuscado = "aHR0cHM6Ly9tYXBzLmFwcC5nb28uZ2wvMzRScWJzMVRacUdNSzZONDg=";
         const btnMapa = document.getElementById('btn-mapa');
-        
+
         function abrirMapa() {
             const linkReal = atob(linkOfuscado);
             window.open(linkReal, '_blank');
         }
-        
-        btnMapa.addEventListener('click', function(event) {
+
+        btnMapa.addEventListener('click', function (event) {
             event.preventDefault();
             abrirMapa();
         });
-        
-        btnMapa.addEventListener('keydown', function(event) {
+
+        btnMapa.addEventListener('keydown', function (event) {
             if (event.key === 'Enter' || event.key === ' ') {
                 event.preventDefault();
                 abrirMapa();

@@ -60,14 +60,28 @@ function switchScreen(from, to) {
 }
 
 // --- LÓGICA DE USUARIO YA REGISTRADO ---
+const btnVolverRegistro = document.getElementById('btn-volver-registro');
+
 btnAlreadyRegistered.addEventListener('click', (e) => {
     e.preventDefault();
     isAlreadyRegistered = true;
     titleScreen1.textContent = "ACCEDER";
     labelScreen1.textContent = "INGRESÁ TU NOMBRE Y APELLIDO";
-    alreadyRegisteredContainer.style.display = "none";
+    btnAlreadyRegistered.classList.add('hidden');
+    if (btnVolverRegistro) btnVolverRegistro.classList.remove('hidden');
     userNameInput.focus();
 });
+
+if (btnVolverRegistro) {
+    btnVolverRegistro.addEventListener('click', (e) => {
+        e.preventDefault();
+        isAlreadyRegistered = false;
+        titleScreen1.textContent = "¿QUIÉN SOS?";
+        labelScreen1.textContent = "INGRESA TU NOMBRE Y APELLIDO";
+        btnVolverRegistro.classList.add('hidden');
+        btnAlreadyRegistered.classList.remove('hidden');
+    });
+}
 
 // ------ PANTALLA 1 ------
 function procesarIngreso() {
@@ -84,7 +98,7 @@ function procesarIngreso() {
     // Ajustes para usuarios registrados vs nuevos
     const greetingText = isAlreadyRegistered ? "HOLA NUEVAMENTE" : "HOLA";
 
-    welcomeText.innerHTML = `<span id="type-1" style="font-size: 0.6em;"></span><br><span id="type-2" class="type-gradient"></span><span class="blinking-cursor">|</span>`;
+    welcomeText.innerHTML = `<span id="type-1" style="font-size: 0.8em; line-height: 1;"></span><br><span id="type-2" class="type-gradient" style="font-size: 1.2em; line-height: 1;"></span><span class="blinking-cursor" style="font-size: 1.2em;">|</span>`;
     if (isAlreadyRegistered) {
         btnInfo.textContent = "VER BONUS TRACK";
     } else {
@@ -305,6 +319,9 @@ btnConfirmYes.addEventListener('click', async () => {
 
         document.getElementById('btn-arrepenti').style.display = 'none';
         document.getElementById('btn-close-sad').style.display = 'none';
+        
+        const sadSticker = document.getElementById('draggable-sad-sticker');
+        if(sadSticker) sadSticker.classList.add('hidden');
 
         if (globalTimer) clearInterval(globalTimer);
         globalTimer = setInterval(() => {
@@ -324,29 +341,86 @@ btnConfirmYes.addEventListener('click', async () => {
 
         document.getElementById('btn-arrepenti').style.display = 'inline-block';
         document.getElementById('btn-close-sad').style.display = 'inline-block';
+
+        const sadSticker = document.getElementById('draggable-sad-sticker');
+        if(sadSticker) sadSticker.classList.remove('hidden');
     }
 });
 
-// Botones de Pausa (solo música)
-const pauseButtons = ['btn-pause', 'btn-pause-1', 'btn-pause-4', 'btn-pause-5', 'btn-pause-playlist'];
+// Botón de Pausa Global (solo música)
+const globalBtnPause = document.getElementById('global-btn-pause');
 let isPaused = false;
 
-pauseButtons.forEach(id => {
-    const btn = document.getElementById(id);
-    if (btn) {
-        btn.addEventListener('click', (e) => {
-            e.preventDefault();
-            isPaused = !isPaused;
-            const music = document.getElementById('bg-music');
-            if (music) {
-                if (isPaused) {
-                    music.pause();
-                    btn.textContent = '▶';
-                } else {
-                    music.play();
-                    btn.textContent = '⏸';
-                }
+if (globalBtnPause) {
+    globalBtnPause.addEventListener('click', (e) => {
+        e.preventDefault();
+        isPaused = !isPaused;
+        const music = document.getElementById('bg-music');
+        
+        if (music) {
+            if (isPaused) {
+                music.pause();
+            } else {
+                music.play();
             }
-        });
-    }
-});
+            
+            const img = globalBtnPause.querySelector('img');
+            if (img) img.src = isPaused ? 'play.png' : 'pause.png';
+        }
+    });
+}
+
+// Lógica para arrastrar stickers
+function makeDraggable(id) {
+    const el = document.getElementById(id);
+    if (!el) return;
+    let isDragging = false;
+    let startX, startY;
+    let initialX = 0, initialY = 0;
+
+    el.addEventListener('pointerdown', (e) => {
+        isDragging = true;
+        el.style.cursor = 'grabbing';
+        
+        startX = e.clientX;
+        startY = e.clientY;
+        
+        // Ocultar el texto de pista (si existe) permanentemente
+        const hint = el.querySelector('.drag-hint');
+        if (hint) {
+            hint.style.opacity = '0';
+        }
+
+        e.preventDefault();
+        el.setPointerCapture(e.pointerId);
+    });
+
+    el.addEventListener('pointermove', (e) => {
+        if (!isDragging) return;
+
+        const dx = e.clientX - startX;
+        const dy = e.clientY - startY;
+
+        el.style.left = `${initialX + dx}px`;
+        el.style.top = `${initialY + dy}px`;
+    });
+
+    const endDrag = (e) => {
+        if (!isDragging) return;
+        isDragging = false;
+        el.style.cursor = 'grab';
+        
+        const dx = e.clientX - startX;
+        const dy = e.clientY - startY;
+        initialX += dx;
+        initialY += dy;
+        
+        el.releasePointerCapture(e.pointerId);
+    };
+
+    el.addEventListener('pointerup', endDrag);
+    el.addEventListener('pointercancel', endDrag);
+}
+
+makeDraggable('draggable-sticker');
+makeDraggable('draggable-sad-sticker');
