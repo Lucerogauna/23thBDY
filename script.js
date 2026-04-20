@@ -370,6 +370,23 @@ if (globalBtnPause) {
     });
 }
 
+// ------ CONTROL DE AUDIO EN SEGUNDO PLANO ======
+// Cuando el usuario minimiza el navegador, cambia de pestaña o de app
+document.addEventListener("visibilitychange", () => {
+    const music = document.getElementById('bg-music');
+    if (music) {
+        if (document.hidden) {
+            // La página no es visible (segundo plano) -> pausamos la música
+            music.pause();
+        } else {
+            // La página vuelve a ser visible -> reanudamos si no la había pausado el usuario
+            if (!isPaused) {
+                music.play().catch(err => console.log("La reproducción automática requiere interacción", err));
+            }
+        }
+    }
+});
+
 // Lógica para arrastrar stickers
 function makeDraggable(id) {
     const el = document.getElementById(id);
